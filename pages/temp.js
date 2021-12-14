@@ -1,8 +1,9 @@
-import { useTranslation } from "next-i18next";
 import { useState, useEffect } from "react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const Home = () => {
-  const { t, i18n } = useTranslation("common");
+  const { t, i18n } = useTranslation("index");
   const [isConnectOpen, setConnectOpen] = useState(false);
   const [userInfo, setUserInfo] = useState("000");
   const [userCount, setUserCount] = useState("000");
@@ -26,17 +27,17 @@ const Home = () => {
       author: "...",
     },
   ]);
-  const dateTimeString = () => {
-    let date = new Date();
-    let year = date.getFullYear();
-    let month = ("0" + (date.getMonth() + 1)).slice(-2);
-    let day = ("0" + date.getDate()).slice(-2);
-    let hours = ("0" + date.getHours()).slice(-2);
-    let minutes = ("0" + date.getMinutes()).slice(-2);
-    let seconds = ("0" + date.getSeconds()).slice(-2);
+  // const dateTimeString = () => {
+  //   let date = new Date();
+  //   let year = date.getFullYear();
+  //   let month = ("0" + (date.getMonth() + 1)).slice(-2);
+  //   let day = ("0" + date.getDate()).slice(-2);
+  //   let hours = ("0" + date.getHours()).slice(-2);
+  //   let minutes = ("0" + date.getMinutes()).slice(-2);
+  //   let seconds = ("0" + date.getSeconds()).slice(-2);
 
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-  };
+  //   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  // };
 
   return (
     <div id="index">
@@ -44,10 +45,10 @@ const Home = () => {
         {/* <div className="opize-projects">Opize Project #1</div> */}
         <h1>
           {t("index_title_1")}
-          {/* <span className="underscore">{t("index_title_2")}</span> */}
-          {/* {t("index_title_3")} */}
+          <span className="underscore">{t("index_title_2")}</span>
+          {t("index_title_3")}
           <br />
-          {/* {t("index_title_4")} */}
+          {t("index_title_4")}
         </h1>
         <div className="btn-connect" onClick={() => setConnectOpen(true)}>
           {userInfo?.status === "finish"
@@ -99,7 +100,7 @@ const Home = () => {
               {t("index_block_1_block_3_title_1")}
               <br />
               <span>
-                {userCount}
+                123
                 {/* {t("index_block_1_block_3_title_2")} */}
               </span>
               <br />
@@ -216,3 +217,9 @@ const Home = () => {
 };
 
 export default Home;
+
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["index"])),
+  },
+});

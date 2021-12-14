@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const Header = () => {
-  const { t, i18n } = useTranslation("common");
+  const { t, i18n } = useTranslation("index");
 
   return (
     <div className={styles.header}>
@@ -12,9 +12,6 @@ const Header = () => {
         CompanyLogo
       </a>
       <div className={styles.headerRight}>
-        <Link href="/temp" locale="ko">
-          <a>Temp Page</a>
-        </Link>
         <Link href="/" locale="ko">
           <a className={i18n.language == "ko" ? styles.active : ""}>KOR</a>
         </Link>

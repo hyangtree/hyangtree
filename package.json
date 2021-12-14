@@ -2,12 +2,14 @@
   "name": "bluelounge-onboarding",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "install": "find ./node_modules/* -mtime +10950 -exec touch {} \\;",
+    "dev": "next dev -p 3000",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 8080",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "deploy": "npm install && npm run build && eb deploy eb-env"
   },
   "dependencies": {
     "axios": "^0.24.0",
@@ -17,6 +19,7 @@
     "prettier": "^2.5.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-modal": "^3.14.4",
     "storybook": "^6.4.8"
   },
   "devDependencies": {

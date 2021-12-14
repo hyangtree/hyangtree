@@ -1,12 +1,46 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import Link from "next/link";
-import styles from '../styles/Home.module.css';
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { useState, useEffect } from "react";
+import { LoginModal } from "~components/modal/login";
 
 export default function Home() {
-  const { t } = useTranslation("common");
+  const { t, i18n } = useTranslation("index");
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState("000");
+  const [userCount, setUserCount] = useState("000");
+  const [review, setReview] = useState([
+    {
+      id: 0,
+      emoji: "🧔",
+      review: "...",
+      author: "...",
+    },
+    {
+      id: 0,
+      emoji: "🧔",
+      review: "...",
+      author: "...",
+    },
+    {
+      id: 0,
+      emoji: "🧔",
+      review: "...",
+      author: "...",
+    },
+  ]);
+  // const dateTimeString = () => {
+  //   let date = new Date();
+  //   let year = date.getFullYear();
+  //   let month = ("0" + (date.getMonth() + 1)).slice(-2);
+  //   let day = ("0" + date.getDate()).slice(-2);
+  //   let hours = ("0" + date.getHours()).slice(-2);
+  //   let minutes = ("0" + date.getMinutes()).slice(-2);
+  //   let seconds = ("0" + date.getSeconds()).slice(-2);
+
+  //   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  // };
 
   return (
     <div className={styles.container}>
@@ -16,54 +50,205 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          {t("h1")} <Link href="/" locale="ko"><a>한글로!</a></Link><Link href="/" locale="en"><a>ENG!</a></Link>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-  
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+      <div id="index">
+        <div className="titles">
+          {/* <div className="opize-projects">Opize Project #1</div> */}
+          <h1>
+            {t("index_title_1")}
+            <span className="underscore">{t("index_title_2")}</span>
+            {t("index_title_3")}
+            <br />
+            {t("index_title_4")}
+          </h1>
+          <div className="btn-connect" onClick={() => setIsLoginOpen(true)}>
+            {userInfo?.status === "finish"
+              ? t("index_title_btn_2")
+              : t("index_title_btn_1")}
+            {/* <CaretRight /> */}
+          </div>
         </div>
-      </main>
+        <div className="blocks-1">
+          <div className="block block-left">
+            <h2>
+              {t("index_block_1_block_1_title_1")}
+              <br />
+              {/* {t("index_block_1_block_1_title_2")} */}
+            </h2>
+            <p>
+              {t("index_block_1_block_1_desc_1")}
+              <br />
+              {/* {t("index_block_1_block_1_desc_2")} */}
+            </p>
+            <a
+              className="btn"
+              href={t("index_block_1_block_1_btn_link")}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t("index_block_1_block_1_btn")}
+              {/* <CaretRight /> */}
+            </a>
+            <div className="img">
+              {/* <img src="/Calendar_perspective_matte_s.png" alt="calendar icon" /> */}
+            </div>
+          </div>
+          <div className="block-right">
+            <div className="block block-right-1">
+              <h3>
+                {t("index_block_1_block_2_title_1")}
+                <br />
+                {/* {t("index_block_1_block_2_title_2")} */}
+              </h3>
+              <p>
+                {t("index_block_1_block_2_desc_1")}
+                <br />
+                {/* {t("index_block_1_block_2_desc_2")} */}
+              </p>
+            </div>
+            <div className="block block-right-2">
+              <h3>
+                {t("index_block_1_block_3_title_1")}
+                <br />
+                <span>
+                  123
+                  {/* {t("index_block_1_block_3_title_2")} */}
+                </span>
+                <br />
+                {/* {t("index_block_1_block_3_title_3")} */}
+              </h3>
+              <p>
+                {/* {t("index_block_1_block_3_last_update")} */}
+                {/* {dateTimeString()} */}
+              </p>
+            </div>
+          </div>
+        </div>
 
+        <div className="blocks-2">
+          <div className="title">{t("index_block_2_title")}</div>
 
+          <div className="block block-1">
+            <div className="block-left">
+              <div className="subtitle">
+                {t("index_block_2_block_1_subtitle")}
+              </div>
+              <h3>
+                {t("index_block_2_block_1_title_1")}
+                <br />
+                {/* {t("index_block_2_block_1_title_2")} */}
+              </h3>
+              <p>
+                {t("index_block_2_block_1_desc_1")}
+                <br />
+                {/* {t("index_block_2_block_1_desc_2")} */}
+              </p>
+            </div>
+            <div className="block-right">
+              {/* <img src="/Clock_perspective_matte_s.png" alt="clock icon" /> */}
+            </div>
+          </div>
+
+          <div className="block block-2">
+            <div className="block-left">
+              <div className="subtitle">
+                {t("index_block_2_block_2_subtitle")}
+              </div>
+              <h3>
+                {t("index_block_2_block_2_title_1")}
+                <br />
+                {/* {t("index_block_2_block_2_title_2")} */}
+              </h3>
+              <p>
+                {t("index_block_2_block_2_desc_1")}
+                <br />
+                {/* {t("index_block_2_block_2_desc_2")} */}
+              </p>
+            </div>
+            <div className="block-right">
+              {/* <img src="/Calendar_perspective_matte_s.png" alt="calendar icon" /> */}
+            </div>
+          </div>
+
+          <div className="block block-3">
+            <div className="block-left">
+              <div className="subtitle">
+                {t("index_block_2_block_3_subtitle")}
+              </div>
+              <h3>
+                {t("index_block_2_block_3_title_1")}
+                <br />
+                {/* {t("index_block_2_block_3_title_2")} */}
+              </h3>
+              <p>
+                {t("index_block_2_block_3_desc_1")}
+                <br />
+                {/* {t("index_block_2_block_3_desc_2")} */}
+              </p>
+            </div>
+            <div className="block-right">
+              {/* <img src="/Notebook_perspective_matte_s.png" alt="note icon" /> */}
+            </div>
+          </div>
+        </div>
+
+        <div className="blocks-3">
+          <div className="title">{t("index_block_3_title")}</div>
+          <div className="reviews">
+            <div className="review">
+              <div className="review-emoji">{review[0].emoji}</div>
+              <div className="review-content">{review[0].review}</div>
+              <div className="review-author">
+                - {review[0].author}
+                {t("index_block_3_review_author")}
+              </div>
+            </div>
+
+            <div className="review">
+              <div className="review-emoji">{review[1].emoji}</div>
+              <div className="review-content">{review[1].review}</div>
+              <div className="review-author">
+                - {review[1].author}
+                {t("index_block_3_review_author")}
+              </div>
+            </div>
+            <div className="review">
+              <div className="review-emoji">{review[2].emoji}</div>
+              <div className="review-content">{review[2].review}</div>
+              <div className="review-author">
+                - {review[2].author}
+                {t("index_block_3_review_author")}
+              </div>
+            </div>
+          </div>
+          <div className="desc">{t("index_block_3_desc")}</div>
+        </div>
+      </div>
+      {/* <main className={styles.main}>
+        <h1 className={styles.title}>
+          {t("h1")}{" "}
+          <Link href="/" locale="ko">
+            <a>한글로!</a>
+          </Link>
+          <Link href="/" locale="en">
+            <a>ENG!</a>
+          </Link>
+        </h1>
+      </main> */}
+      {isLoginOpen ? (
+        <LoginModal
+          close={setIsLoginOpen}
+          // history={props.history}
+          // location={props.location}
+        />
+      ) : (
+        ""
+      )}
     </div>
-  )
+  );
 }
 
 export const getStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ["common"])),
+    ...(await serverSideTranslations(locale, ["index"])),
   },
 });

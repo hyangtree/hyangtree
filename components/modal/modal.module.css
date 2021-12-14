@@ -1,0 +1,12 @@
+.StyledModalWrapper {
+  width: 500px;
+  height: 600px;
+}
+
+.StyledModal {
+  background: white;
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  padding: 15px;
+}
